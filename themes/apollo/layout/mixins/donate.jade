@@ -1,0 +1,31 @@
+mixin donate(donatePic)
+  if is_post() && donatePic
+    div.donate-con
+      .donate#js-donate(onmousedown="return false;") 赏
+      #js-donate-img(style="display: none;")
+        img(src=donatePic, style="display: block;margin: 0 auto;max-width: 100%")
+      
+      script.
+        ;(function () {
+          var el = document.getElementById('js-donate-img');
+          document.getElementById('js-donate').addEventListener('click', function () {
+            el.style.display = el.style.display === 'none' ? 'block' : 'none';
+          });
+        }());
+
+mixin wx(wxPub)
+  if is_post() && wxPub
+    a#js-follow-wx.wx-url(href=wxPub.url) 点击关注微信公众号
+    img#js-qr-code(src=wxPub.code, style="display: none;margin: 0 auto;")
+
+    script.
+      ;(function () {
+        var isWeixin = /micromessenger/i.test(window.navigator.userAgent) 
+            || typeof WeixinJSBridge !== 'undefined';
+        var el = document.getElementById('js-qr-code');
+        document.getElementById('js-follow-wx').addEventListener('click', function (e) {
+          if (isWeixin) return true;
+          e.preventDefault();
+          el.style.display = el.style.display === 'none' ? 'block' : 'none';
+        });
+      }());

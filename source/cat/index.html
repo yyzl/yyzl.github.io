@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <title>秋裤猫萌主</title>
+  <style>
+    * { margin: 0; padding: 0; bottom: 0; }
+    #wrapper { display: flex; flex-wrap: wrap; }
+    img { width: 25%; object-fit: contain; }
+  </style>
+</head>
+<body>
+<div id="wrapper"></div>
+<script>
+var html = ""
+
+for (let i = 0; i < 3;) {
+  i += 1;
+  for (let j = 0; j < 6;)  {
+    j += 1;
+    for (let k = 0; k < 4;)  {
+      html += `<img src="https://p1.ssl.qhimg.com/d/inn/fdf13611/Qiukumao/${i}/${j}${++k}.gif">`
+    }
+  }
+}
+document.getElementById('wrapper').innerHTML = html; 
+</script>
+</body>
+</html>

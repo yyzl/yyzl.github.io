@@ -1,0 +1,31 @@
+extends partial/layout
+
+block site_title
+    != (page.from ? '[译]' : '') + page.title + " - " + config.title
+
+block description
+    - var desc = page.desc || page.title + ' - ' + config.author;
+    meta(name="description", content=desc)
+    - var kws = [];
+    - page.tags.each(function(tag) {
+    -   kws.push(tag.name);
+    - });
+    - kws = kws.join(',');
+    meta(name="keywords", content=kws)
+    
+block container
+    include mixins/post
+    +post(page)
+
+block donate
+    include mixins/donate
+    +wx(config.wxPub)
+    +donate(config.donatePic)
+
+block pagination
+    include mixins/paginator
+    +post()
+    include partial/comment
+
+block copyright
+    include partial/copyright

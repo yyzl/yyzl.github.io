@@ -1,0 +1,151 @@
+mixin postInfo(item)
+    .post-info
+        != full_date(item.date, 'll')
+        if item.from && is_home()
+            a.post-from(href=item.from target="_blank" title="查看原文") 原文地址
+        - item.tags.each(function (tag) {
+            a.post-tag(href=url_for(tag.path), title=tag.name)
+                != '#' + tag.name
+        - })
+
+//- Index Page
+mixin posts()
+    ul.home.post-list
+        - page.posts.each(function (item) {
+            li.post-list-item
+                article.post-block
+                    h2.post-title
+                        a.post-title-link(href= url_for(item.path))
+                            != (item.from ? '[译] ' : '[文] ') + item.title
+                    +postInfo(item)
+                    .post-content
+                        != item.abstract || truncate(strip_html(item.content), {length: 120, omission: '...'})
+                        a.read-more(href=url_for(item.path)  title="阅读全文")!= __('more')
+        - })
+
+//- Archive Page
+mixin postList()
+    .archive
+        - var month = '';
+        - var i = 0;
+        - var monthChange = false;
+        - page.posts.each(function (item) {
+            - i++;
+            - var itemMonth = date(item.date, 'YYYY-MM');
+            - monthChange = month !== itemMonth;
+            - month = monthChange ? itemMonth : month;
+
+            if monthChange && !i
+                hr
+
+            if monthChange
+                h3!= month
+
+            .post-item
+                //- +postInfo(item)
+                span
+                    != full_date(item.date, 'YYYY-MM-DD')
+                a.post-title-link(href= url_for(item.path), title=item.title)
+                    != (item.from ? '[译] ' : '[文] ') + item.title
+        - })
+
+
+//- copy right
+mixin copyRight(item)
+    p
+        - var is_translation = item.from;
+        if is_translation
+            != "原文作者:"
+            a(href=item.social, title=item.author, target="_blank")
+                != item.author
+            br
+
+            != "原文地址:"
+            a(href=item.from, title=item.from, target="_blank")
+                != item.from
+            br
+
+        != is_translation ? "中文翻译:" : "本文作者:"
+        a(href=config.github, title=config.author, target="_blank")
+            != config.author
+        br
+
+        != is_translation ? "译文地址:" : "本文地址:"
+        - var url = config.url + url_for(item.path);
+        a(href=url, title=url)
+            != url
+        br
+
+        if is_translation
+            if item.permission == 1
+               != "蒙原作者惠允翻译发布，转载请保留此声明。"
+            else
+                != "本文由 @" + config.author + " 翻译，转载请保留此声明。"
+            
+            br
+            != "著作权属于原作者，本译文仅用于学习、研究和交流目的，请勿用于商业目的。"
+        
+        else
+            != "本文由 @" + config.author + " 创作，转载请保留此声明。"
+            br    
+            != "所有权利保留，请勿用于商业目的。"
+    
+//- after delaration
+mixin suffix(item, play)
+    - var is_translation = item.from;
+    - var url = config.url + url_for(item.path);
+
+    != play ? "如果你看到了这里的文字，说明你所阅读的内容来自第三方抓取，建议访问原文，查看最新内容^=^。" : ""
+    != is_translation ? "原文作者：" : "本文作者："
+    if is_translation
+        a(href=item.social, title=item.author, target="_blank")
+            != item.author
+    else
+        a(href=config.github, title=config.author, target="_blank")
+                != config.author
+    br
+    != is_translation ? "原文地址：" : "本文地址：" 
+    if is_translation
+        a(href=item.from, title=item.from, target="_blank")
+            != item.from
+    else
+        a(href=url, title=url)
+            != url
+    br
+    != is_translation ? "本译文仅用于学习、研究和交流目的，转载请保留原文出处" : "转载请注明来源"
+
+//- Post Page
+mixin post(item)
+    .post
+        article.post-block
+            h1.post-title
+                != (item.from ? '[译] ' : '') + item.title
+            +postInfo(item)
+            .post-content
+                +copyRight(item)
+                //- p
+                    //- +suffix(item, true)
+                != item.content
+                p
+                    +suffix(item)
+//- Tag Page
+mixin tag()
+    .archive
+        h3!= page.tag
+        - page.posts.each(function (item) {
+            .post-item
+                span
+                    != full_date(item.date, 'YYYY-MM-DD')
+                a.post-title-link(href= url_for(item.path), title=item.title)
+                    != (item.from ? '[译] ' : '[文] ') + item.title
+        - })
+
+//- Tags Index
+mixin tags()
+    #tagList.tag-list
+        - site.tags.each(function (tag) {
+            a.tag-link(href= url_for(tag.path), title=tag.name)
+                != tag.name + '  (' + tag.length + ')'
+        - })
+    
+

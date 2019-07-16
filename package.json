@@ -1,0 +1,36 @@
+{
+  "name": "hexo-site",
+  "version": "2.1.0",
+  "private": true,
+  "hexo": {
+    "version": "3.9.0"
+  },
+  "scripts": {
+    "jsmin": "node ./jsmin.js",
+    "css": "postcss --use autoprefixer ./public/scss/*.css -d ./public/scss/",
+    "pull": "git pull",
+    "push": "git add -A && git commit -m commit && git push",
+    "server": "hexo clean && hexo generate && hexo server --watch",
+    "start": "npm run server"
+  },
+  "dependencies": {
+    "hexo": "^3.2.0",
+    "hexo-browsersync": "^0.2.0",
+    "hexo-generator-archive": "^0.1.4",
+    "hexo-generator-feed": "^1.2.0",
+    "hexo-generator-index": "^0.2.0",
+    "hexo-generator-restful": "^0.2.0",
+    "hexo-generator-sitemap": "^1.1.2",
+    "hexo-generator-tag": "^0.2.0",
+    "hexo-html-minifier": "0.0.1",
+    "hexo-renderer-jade": "^0.3.0",
+    "hexo-renderer-marked-lazy": "^1.0.2",
+    "hexo-renderer-sass": "^0.2.0",
+    "hexo-server": "^0.2.0"
+  },
+  "devDependencies": {
+    "autoprefixer": "^6.5.3",
+    "postcss-cli": "^2.6.0",
+    "uglify-js": "^2.8.21"
+  }
+}

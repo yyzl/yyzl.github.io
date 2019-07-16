@@ -1,0 +1,102 @@
+# Site
+title: "文蔺的博客 @wemlion"
+subtitle: 
+description: "文蔺的前端学习记录，国外技术文章翻译，个人学习心得等等这些都会记录在这里。"
+keywords: "文蔺,wemlion,前端,Front,Front End,博客,技术,CSS,JavaScript,HTML,Github,HTTP,Node,Node.js"
+author: 文蔺
+language: zh-cn
+timezone:
+github: 'https://github.com/AngusFu'
+
+# 赞赏二维码
+donatePic: 'https://ogjija9ft.qnssl.com/donate.png'
+# 微信公众号
+wxPub:
+    code: https://ogjija9ft.qnssl.com/wxqrcode.jpg
+    url: https://mp.weixin.qq.com/mp/profile_ext?action=home&__biz=MzA3MTk1MzIxOQ==&scene=110#wechat_redirect
+
+# URL
+url: http://www.wemlion.com
+root: /
+permalink: :year/:title/
+permalink_defaults:
+
+# Directory
+source_dir: source
+public_dir: public
+tag_dir: tag
+archive_dir: archives
+category_dir: categories
+code_dir: downloads/code
+i18n_dir: :lang
+skip_render: [caniuse/**/**, README.md, cat/**/**]
+
+# Writing
+new_post_name: :title.md # File name of new posts
+default_layout: post
+titlecase: true # Transform title into titlecase
+external_link: true # Open external links in new tab
+filename_case: 0
+render_drafts: false
+post_asset_folder: false
+relative_link: false
+future: true
+highlight: 
+    enable: true
+    line_number: false
+
+# Category & Tag
+default_category: uncategorized
+category_map: category
+tag_map: tags
+
+# Date / Time format
+## Hexo uses Moment.js to parse and display date
+## You can customize the date format as defined in
+## http://momentjs.com/docs/#/displaying/format/
+date_format: YYYY-MM-DD
+time_format: HH:mm:ss
+
+# Pagination
+## Set per_page to 0 to disable pagination
+per_page: 10
+pagination_dir: page
+
+# Extensions
+## Plugins: http://hexo.io/plugins/
+## Themes: http://hexo.io/themes/
+theme: apollo
+
+# 修改后的 markdown 转换
+marked:
+    gfm: true
+    ## lazy-load 图片
+    lazyAttr: data-orig
+    blankSrc: https://ogjija9ft.qnssl.com/placeholder.png 
+
+node_sass:
+  outputStyle: compressed
+  sourceComments: false
+
+feed:
+    type: atom
+    path: atom.xml
+    limit: 10
+
+sitemap:
+    path: sitemap.xml
+
+archive_generator:
+    per_page: 0
+    yearly: false
+    monthly: false
+    daily: false
+tag_generator:
+    per_page: 0
+
+html_minifier:
+  exclude: 
+  minifyJS: true
+  collapseWhitespace: true
+  html5: true
+  removeAttributeQuotes: true

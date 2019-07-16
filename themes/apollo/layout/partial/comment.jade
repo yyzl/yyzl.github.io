@@ -1,0 +1,70 @@
+if theme.duoshuo
+    .ds-thread(data-thread-key=page.path, data-title=page.title, data-url=page.permalink, data-author-key='1')
+    script.
+        var duoshuoQuery = {short_name:"#{theme.duoshuo}"};
+        (function() {
+            var ds = document.createElement('script');
+            ds.type = 'text/javascript';ds.async = true;
+            ds.src = (document.location.protocol == 'https:' ? 'https:' : 'http:') + '//static.duoshuo.com/embed.js';
+            ds.charset = 'UTF-8';
+            (document.getElementsByTagName('head')[0] 
+             || document.getElementsByTagName('body')[0]).appendChild(ds);
+        })();
+
+if theme.gitment
+    #gitment(
+        data-title=page.title,
+        data-url=page.permalink,
+        data-gid=theme.gitment.id,
+        data-gs=theme.gitment.secret,
+        data-user=theme.gitment.user,
+        data-repo=theme.gitment.repo
+    )
+    script.
+        (function() {
+            var cssload = false;
+            var jsload  = false;
+            window.lstyle('/scss/gitment.css', function () {
+                cssload = true;
+                jsload && initGitment();
+            });
+            window.lsa('/scripts/gitment.js', function () {
+                jsload = true;
+                cssload && initGitment();
+            });
+            function initGitment() {
+                var ds = document.getElementById('gitment').dataset;
+                var gitment = new Gitment({
+                    id: ds.url,
+                    owner: ds.user,
+                    repo: ds.repo,
+                    oauth: {
+                        client_id: ds.gid,
+                        client_secret: ds.gs
+                    },
+                });
+                gitment.render('gitment');
+
+                // 等待 5s 自动初始化
+                setTimeout(function () {
+                    var initBtn = document.querySelector('.gitment-comments-init-btn');
+                    if (initBtn) {
+                        initBtn.click();
+                    }
+                }, 1000 * 5);
+            }
+        })();
+
+if theme.disqus
+    #disqus_thread
+    script.
+        var disqus_shortname = '#{theme.disqus}';
+        var disqus_identifier = '#{page.path}';
+        var disqus_title = '#{page.title}';
+        var disqus_url = '#{config.url}/#{page.path}';
+        (function() {
+            var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+            dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+            (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+        })();
+    script(id='dsq-count-scr' src='//#{theme.disqus}.disqus.com/count.js' async)

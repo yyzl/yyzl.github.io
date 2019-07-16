@@ -1,0 +1,31 @@
+menu:
+    首页: /
+    归档: /archives/
+    Tags: /tag/
+    GitHub: 'https://github.com/AngusFu'
+    RSS: /atom.xml
+
+favicon: /favicon.ico
+logo: /img/avatar.jpg
+
+# Comment
+## 使用请参考 https://github.com/imsun/gitment
+#gitment:
+#    user: AngusFu
+#    repo: gitment-store
+#    id: be59313ed5e732f15480
+#    secret: b682a90980bc35fa770b539d5f6bf0a7d400eb08
+
+# Analytics
+# google-analytics:
+ga: UA-82805363-1
+# Another site: yyzl.github.io
+# for https purpose
+ga_yyzl: "UA-87311105-1"
+
+# 360 分析的 domainId
+## see https://fenxi.360.cn
+qha: 
+
+# Copyright Infomation
+startyear: 2016

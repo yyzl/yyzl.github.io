@@ -1,0 +1,48 @@
+language: node_js
+node_js:
+  - "6"
+
+# S: Build Lifecycle
+install:
+  - npm install hexo-cli -g
+  - npm install
+
+# before_script:
+
+script:
+  - hexo g
+  - npm run css
+  - npm run jsmin
+
+after_script:
+  - cd ./public
+  # commit gh-pages
+  - git init
+  - git config user.name "wemlion"
+  - git config user.email "angusfu1126@qq.com"
+  - git add .
+  - git commit -m "Update docs"
+  - git push --force --quiet "https://${GH_TOKEN}@${GH_REF}" master:gh-pages
+  
+  # commit yyzl.github.io
+  - rm ./CNAME
+  - rm -rf .git
+  - git init
+  - git config user.name "wemlion"
+  - git config user.email "angusfu1126@qq.com"
+  - git add .
+  - git commit -m "Update docs"
+  - git push  --force --quiet "https://${GH_TOKEN}@${GH_YYZL}" master:master
+# E: Build LifeCycle
+
+# branches:
+#   only:
+#     - master
+env:
+ global:
+   - GH_REF: github.com/AngusFu/blog.git
+   - GH_YYZL: github.com/yyzl/yyzl.github.io
+
+cache:
+  directories:
+    - node_modules
